@@ -1,0 +1,20 @@
+services:
+ products-mssqlserver:
+    container_name: products-mssqlserver-container
+    build: Database/
+    ports:
+      - 1433:1433
+    networks:
+      - products-network
+ products-api:
+    container_name: products-api-container
+    build: Products/
+    hostname: products-api-host
+    ports:
+       - "8080:8080"
+    networks:
+      - products-network
+    depends_on:
+      - products-mssqlserver
+networks:
+  products-network:
